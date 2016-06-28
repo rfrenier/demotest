@@ -1,0 +1,40 @@
+{
+
+"AWSTemplateFormatVersion" : "2010-09-09",
+
+"Description" : "testing boto3 jenkins etc",
+
+	"Parameters" : {
+
+    	"KeyName01" : {
+      		"Description" : "SSH bastion host key pair",
+      		"Type" : "AWS::EC2::KeyPair::KeyName"
+    	}
+    },
+
+	"Resources" : {
+    	
+    	"SgEc2BastionHost" : {
+      		"Type" : "AWS::EC2::SecurityGroup",
+      		"Properties" : {
+        		"GroupDescription" : "Bastion Host SG",
+        		"VpcId" : "vpc-52b1a736",   
+        		"SecurityGroupIngress" : 
+        			{ "IpProtocol" : "tcp", "FromPort" : "22", "ToPort" : "22", "CidrIp" : "0.0.0.0/0" },
+         		"Tags" : [ { "Key" : "Name", "Value" : "rf-sg-ec2-ssh01" } ]     
+      		}
+    	},
+    	
+      	"Ec2BastionHost" : {
+     		"Type" : "AWS::EC2::Instance",
+      		"Properties" : {
+        	"InstanceType" : "t2.micro",
+        	"ImageId" : "ami-08111162",
+        	"KeyName" : {"Ref" : "KeyName01"},
+        	"SubnetId" : "subnet-0ede5456",
+        	"SecurityGroupIds" : [ { "Ref" : "SgEc2BastionHost" } ], 
+        	"Tags" : [ { "Key" : "Name", "Value" : "rf-ec2-ssh01" } ]  
+      		}
+    	}    	
+	}
+}
