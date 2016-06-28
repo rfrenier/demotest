@@ -59,6 +59,10 @@ def main():
 			sys.exit(2)
 
 
+print "app:" + app
+
+
+
 	# If any of the variables were blank, echo help and quit
 	if (app == '') or (nvtype == '') or (env == '') or (ver == '') or (dnsuser == '') or (dnspass == '') or (owner == '') or (email == ''):
 		print helpmessage
