@@ -18,6 +18,10 @@ def main():
 	owner = ""
 	email = ""
 
+
+	print 'Number of arguments:', len(sys.argv), 'arguments.'
+	print 'Argument List:', str(sys.argv)
+
 	# Define globals
 	helpmessage = "demoEC2.py --app <Application> --type <EnvironmentType> --env <ChefEnvironment> --ver <Version> --dnsuser <techopsapiuser> --dnspass <techopsapipassword> --owner <eid> --email <owneremail>"
 	knifefile = "/opt/chef/developer12/developer/knife.rb"
