@@ -7,9 +7,9 @@ import time
 import boto.cloudformation
 import boto
 
+#Define arguement variables
 def main():
-	# Define arguement variables
-	app = ""
+	app = "test"
 	nvtype = ""
 	env = ""
 	ver = ""
