@@ -59,14 +59,13 @@ def main():
 			sys.exit(2)
 
 
-
 	# If any of the variables were blank, echo help and quit
 	if (app == '') or (nvtype == '') or (env == '') or (ver == '') or (dnsuser == '') or (dnspass == '') or (owner == '') or (email == ''):
 		print helpmessage
 		sys.exit(2)
 
 # Define stackname
-	stackname = app + "-" + nvtype + "-" + env + "-" + ver + "-" + time.strftime("%H%M%S")
+stackname = app + "-" + nvtype + "-" + env + "-" + ver + "-" + time.strftime("%H%M%S")
 
  # Set S3 Template URL
 s3template = "https://s3.amazonaws.com/rf-cf-fidelity/web-cf.json"
