@@ -18,6 +18,14 @@ def main():
 	owner = ""
 	email = ""
 
+	# Define globals
+	helpmessage = "demoEC2.py --app <Application> --type <EnvironmentType> --env <ChefEnvironment> --ver <Version> --dnsuser <techopsapiuser> --dnspass <techopsapipassword> --owner <eid> --email <owneremail>"
+	knifefile = "/opt/chef/developer12/developer/knife.rb"
+	
+	# Check if less than 8 parameters were passed
+	if len(sys.argv) < 1:
+		print helpmessage
+		sys.exit(2)
 
 
 	# Grab parameters and populate variables
