@@ -9,7 +9,7 @@ import boto
 
 #Define arguement variables
 def main():
-	app = "test"
+	app = ""
 	nvtype = ""
 	env = ""
 	ver = ""
@@ -63,9 +63,6 @@ def main():
 			sys.exit(2)
 
 
-	print "app:" + app
-
-
 
 	# If any of the variables were blank, echo help and quit
 	#if (app == '') or (nvtype == '') or (env == '') or (ver == '') or (dnsuser == '') or (dnspass == '') or (owner == '') or (email == ''):
@@ -73,7 +70,8 @@ def main():
 	#	sys.exit(2)
 
 	# Define stackname
-	stackname = app + "-" + nvtype + "-" + env + "-" + ver + "-" + time.strftime("%H%M%S")
+	stackname = app 
+	#+ "-" + nvtype + "-" + env + "-" + ver + "-" + time.strftime("%H%M%S")
 
  	# Set S3 Template URL
 	s3template = "https://s3.amazonaws.com/rf-cf-fidelity/web-cf.json"
