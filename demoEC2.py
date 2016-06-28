@@ -23,9 +23,9 @@ def main():
 	knifefile = "/opt/chef/developer12/developer/knife.rb"
 	
 	# Check if less than 8 parameters were passed
-	if len(sys.argv) < 8:
-		print helpmessage
-		sys.exit(2)
+	#if len(sys.argv) < 8:
+	#	print helpmessage
+	#	sys.exit(2)
 
 	# Grab parameters and populate variables
 	try:
