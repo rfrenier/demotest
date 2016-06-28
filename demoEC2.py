@@ -23,7 +23,7 @@ def main():
 	knifefile = "/opt/chef/developer12/developer/knife.rb"
 	
 	# Check if less than 8 parameters were passed
-	if len(sys.argv) < 1:
+	if len(sys.argv) < 8:
 		print helpmessage
 		sys.exit(2)
 
@@ -58,6 +58,12 @@ def main():
 			print helpmessage
 			sys.exit(2)
 
+
+
+	# If any of the variables were blank, echo help and quit
+	if (app == '') or (nvtype == '') or (env == '') or (ver == '') or (dnsuser == '') or (dnspass == '') or (owner == '') or (email == ''):
+		print helpmessage
+		sys.exit(2)
 
 # Define stackname
 stackname = app + "-" + nvtype + "-" + env + "-" + ver + "-" + time.strftime("%H%M%S")
