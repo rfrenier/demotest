@@ -70,7 +70,7 @@ def main():
 	s3template = "https://s3.amazonaws.com/rf-cf-fidelity/web-cf.json"
 
  	# Run CFN command
-	cfnconn = boto.cloudformation.connect_to_region(region)
+	cfnconn = boto.cloudformation.connect_to_region(us-east-1)
 	print "\nCreating stack...\n"
 	cfnoutput = cfnconn.create_stack("stackname", template_url=s3template)
 	if "arn:aws:cloudformation:" not in cfnoutput:
