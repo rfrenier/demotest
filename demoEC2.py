@@ -7,8 +7,8 @@ import time
 import boto.cloudformation
 import boto
 
-#Define arguement variables
 def main():
+	# Define arguement variables
 	app = ""
 	nvtype = ""
 	env = ""
@@ -18,19 +18,14 @@ def main():
 	owner = ""
 	email = ""
 
-
-	print 'Number of arguments:', len(sys.argv), 'arguments.'
-	print 'Argument List:', str(sys.argv)
-
 	# Define globals
-	helpmessage = "demoEC2.py --app <Application> --type <EnvironmentType> --env <ChefEnvironment> --ver <Version> --dnsuser <techopsapiuser> --dnspass <techopsapipassword> --owner <eid> --email <owneremail>"
+	helpmessage = "capone-aws-cfn-deploy.py --app <Application> --type <EnvironmentType> --env <ChefEnvironment> --ver <Version> --dnsuser <techopsapiuser> --dnspass <techopsapipassword> --owner <eid> --email <owneremail>"
 	knifefile = "/opt/chef/developer12/developer/knife.rb"
 	
 	# Check if less than 8 parameters were passed
-	#if len(sys.argv) < 8:
-	#	print helpmessage
-	#	sys.exit(2)
-
+	if len(sys.argv) < 8:
+		print helpmessage
+		sys.exit(2)
 
 	# Grab parameters and populate variables
 	try:
@@ -62,8 +57,6 @@ def main():
 			print helpmessage
 			sys.exit(2)
 
-
-
 	# If any of the variables were blank, echo help and quit
 	#if (app == '') or (nvtype == '') or (env == '') or (ver == '') or (dnsuser == '') or (dnspass == '') or (owner == '') or (email == ''):
 	#	print helpmessage
@@ -85,7 +78,9 @@ def main():
 		sys.exit(2)
 	else:
 		print "Output:\n" + cfnoutput
-                                                                                                                                                                                                                                                                                    
+        
+if __name__ == "__main__":
+	main()                                                                                                                                                                                                                                                                            
                                                                                                                                                                                                                                                                                      
                                                                                                                                                                                                                                                                                      
                                                                                                                                                                                                                                                                                      
