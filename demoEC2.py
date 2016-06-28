@@ -1,6 +1,11 @@
 
-import boto
+import os
+import sys
+import getopt
+import commands
+import time
 import boto.cloudformation
+import boto
 
 def main():
 	# Define arguement variables
@@ -12,7 +17,6 @@ def main():
 	dnspass = ""
 	owner = ""
 	email = ""
-
 
 
 
