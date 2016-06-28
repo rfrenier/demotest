@@ -68,9 +68,9 @@ def main():
 
 
 	# If any of the variables were blank, echo help and quit
-	if (app == '') or (nvtype == '') or (env == '') or (ver == '') or (dnsuser == '') or (dnspass == '') or (owner == '') or (email == ''):
-		print helpmessage
-		sys.exit(2)
+	#if (app == '') or (nvtype == '') or (env == '') or (ver == '') or (dnsuser == '') or (dnspass == '') or (owner == '') or (email == ''):
+	#	print helpmessage
+	#	sys.exit(2)
 
 	# Define stackname
 	stackname = app + "-" + nvtype + "-" + env + "-" + ver + "-" + time.strftime("%H%M%S")
