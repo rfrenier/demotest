@@ -60,7 +60,7 @@ def main():
 
 
 # Define stackname
-stackname = app 
+stackname = app + "-" + nvtype + "-" + env + "-" + ver + "-" + time.strftime("%H%M%S")
 
  # Set S3 Template URL
 s3template = "https://s3.amazonaws.com/rf-cf-fidelity/web-cf.json"
