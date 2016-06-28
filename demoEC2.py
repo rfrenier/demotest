@@ -27,9 +27,9 @@ def main():
 	knifefile = "/opt/chef/developer12/developer/knife.rb"
 	
 	# Check if less than 8 parameters were passed
-	if len(sys.argv) < 8:
-		print helpmessage
-		sys.exit(2)
+	#if len(sys.argv) < 8:
+	#	print helpmessage
+	#	sys.exit(2)
 
 
 	# Grab parameters and populate variables
@@ -70,7 +70,7 @@ def main():
 	#	sys.exit(2)
 
 	# Define stackname
-	stackname = app 
+	#stackname = app 
 	#+ "-" + nvtype + "-" + env + "-" + ver + "-" + time.strftime("%H%M%S")
 
  	# Set S3 Template URL
@@ -79,7 +79,7 @@ def main():
  	# Run CFN command
 	cfnconn = boto.cloudformation.connect_to_region(region)
 	print "\nCreating stack...\n"
-	cfnoutput = cfnconn.create_stack(stackname, template_url=s3template)
+	cfnoutput = cfnconn.create_stack("stackname", template_url=s3template)
 	if "arn:aws:cloudformation:" not in cfnoutput:
 		print "Stack create failed."
 		sys.exit(2)
