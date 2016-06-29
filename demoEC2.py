@@ -19,7 +19,7 @@ def main():
 	email = ""
 
 	# Define globals
-	helpmessage = "capone-aws-cfn-deploy.py --app <Application> --type <EnvironmentType> --env <ChefEnvironment> --ver <Version> --dnsuser <techopsapiuser> --dnspass <techopsapipassword> --owner <eid> --email <owneremail>"
+	helpmessage = "aws-cfn-deploy.py --app <Application> --type <EnvironmentType> --env <ChefEnvironment> --ver <Version> --dnsuser <techopsapiuser> --dnspass <techopsapipassword> --owner <eid> --email <owneremail>"
 	knifefile = "/opt/chef/developer12/developer/knife.rb"
 	
 	# Check if less than 8 parameters were passed
@@ -68,6 +68,16 @@ def main():
 
  	# Set S3 Template URL
 	s3template = "https://s3.amazonaws.com/rf-cf-fidelity/web-cf.json"
+	
+	# Pull Chef Environment default_attributes --- changing this line to just read App
+	chefpull = "/usr/bin/sudo knife environment show -a default_attributes " + app 
+	
+	#+ "_" + nvtype + "_" + env + "_" + ver + " -c " + knifefile + " | sed 1,2d"
+	print "\nPulling chef environment:\n" + chefpull
+	#defattrib = commands.getoutput(chefpull)
+	#print "\nOutput:\n" + defattrib
+	#diction = dict(item.strip().split(":") for item in defattrib.splitlines())
+	#region = diction["region"].strip()
 
  	# Run CFN command
 	cfnconn = boto.cloudformation.connect_to_region("us-east-1")
