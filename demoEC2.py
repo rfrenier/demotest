@@ -70,7 +70,7 @@ def main():
 	s3template = "https://s3.amazonaws.com/rf-cf-fidelity/web-cf.json"
 	
 	# Pull Chef Environment default_attributes --- changing this line to just read App
-	chefpull = "/usr/bin/sudo knife environment show -a default_attributes " + app 
+	chefpull = "/usr/bin/knife environment show -a default_attributes " + app 
 	
 	#+ "_" + nvtype + "_" + env + "_" + ver + " -c " + knifefile + " | sed 1,2d"
 	print "\nPulling chef environment:\n" + chefpull
