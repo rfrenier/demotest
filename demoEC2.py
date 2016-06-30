@@ -79,6 +79,7 @@ def main():
 		cfecho = cfecho + "echo " + detail + " >> /tmp/cf_details.txt;"
 	paramslist = []
 	
+	print efecho
 	
 ####################################	
 	for param in cfnparams:
