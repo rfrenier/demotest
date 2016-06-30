@@ -55,7 +55,7 @@ def main():
 	#	sys.exit(2)
 
 	# Define stackname
-	stackname = app + "-" + type
+	stackname = app + "-" + nvtype
 	#+ "-" + nvtype + "-" + env + "-" + ver + "-" + time.strftime("%H%M%S")
 
  	# Set S3 Template URL
