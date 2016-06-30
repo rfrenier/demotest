@@ -79,16 +79,15 @@ def main():
 		cfecho = cfecho + "echo " + detail + " >> /tmp/cf_details.txt;"
 	paramslist = []
 	
-
 	
 ####################################	
-	#for param in cfnparams:
-	#	if "TemplateURI" in param:
-	#		paramslist.append((param,'https://' + diction[param].strip()))
-	#	elif "echo2cfdetails" in param:
-	#		paramslist.append((param,cfecho))
-	#	else:
-	#		paramslist.append((param,diction[param].strip()))
+	for param in cfnparams:
+		if "TemplateURI" in param:
+			paramslist.append((param,'https://' + diction[param].strip()))
+		elif "echo2cfdetails" in param:
+			paramslist.append((param,cfecho))
+		else:
+			paramslist.append((param,diction[param].strip()))
 	#paramslist.append(('OwnerEID',owner))
 	#paramslist.append(('OwnerEmail',email))
 	#paramslist.append(('ApplicationName',app))
@@ -98,8 +97,8 @@ def main():
 	#dnscname = dnscname.replace(".","-")
 	#dnscname = dnscname + ".kdc.capitalone.com"
 	#paramslist.append(('WebELBCNAMEFQDN',dnscname))
-	#print "\nParameters Contents:\n"
-	#print paramslist
+	print "\nParameters Contents:\n"
+	print paramslist
 ##################################
 	
 	# Set S3 Template URL
