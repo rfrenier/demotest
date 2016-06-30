@@ -74,9 +74,9 @@ def main():
 	cfnparams = diction["cfn_inputs"].strip().split(",")
 	print cfnparams
 	
-	#for detail in diction["echo2cfdetails"].strip().split(","):
-	#	cfecho = cfecho + "echo " + detail + " >> /tmp/cf_details.txt;"
-	#paramslist = []
+	for detail in diction["echo2cfdetails"].strip().split(","):
+		cfecho = cfecho + "echo " + detail + " >> /tmp/cf_details.txt;"
+	paramslist = []
 	#for param in cfnparams:
 	#	if "TemplateURI" in param:
 	#		paramslist.append((param,'https://' + diction[param].strip()))
@@ -102,7 +102,7 @@ def main():
  	# Run CFN command
 	cfnconn = boto.cloudformation.connect_to_region(region)
 	print "\nCreating stack...\n"
-	cfnoutput = cfnconn.create_stack(stackname, template_url=s3template)
+	cfnoutput = cfnconn.create_stack(stackname, template_url=s3template, parameters=paramslist)
 	if "arn:aws:cloudformation:" not in cfnoutput:
 		print "Stack create failed."
 		sys.exit(2)
