@@ -59,10 +59,8 @@ def main():
 	#+ "-" + nvtype + "-" + env + "-" + ver + "-" + time.strftime("%H%M%S")
 
 	
-	# Pull Chef Environment default_attributes --- changing this line to just read App ****Add +knifefile + 
-	chefpull = "/usr/bin/knife environment show -a default_attributes " + app + " -c" + " | sed 1,2d"
-	
-	#+ "_" + nvtype + "_" + env + "_" + ver + " -c " 
+	# Pull Chef Environment default_attributes
+	chefpull = "/usr/bin/knife environment show -a default_attributes " + app + "_" + nvtype + "_" + env + "_" + ver + " -c " + knifefile + " | sed 1,2d"
 	print "\nPulling chef environment:\n" + chefpull
 	defattrib = commands.getoutput(chefpull)
 	print "\nOutput:\n" + defattrib
