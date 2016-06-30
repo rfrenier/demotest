@@ -72,7 +72,7 @@ def main():
 	# Build CFN parameters
 	cfecho = ""
 	cfnparams = diction["cfn_inputs"].strip().split(",")
-	print cfnparms
+	print cfnparams
 	
 	#for detail in diction["echo2cfdetails"].strip().split(","):
 	#	cfecho = cfecho + "echo " + detail + " >> /tmp/cf_details.txt;"
