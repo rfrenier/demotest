@@ -75,7 +75,7 @@ def main():
 
 	print diction
 
-
+	print cfnparams 
 
 	for detail in diction["echo2cfdetails"].strip().split(","):
 		cfecho = cfecho + "echo " + detail + " >> /tmp/cf_details.txt;"
