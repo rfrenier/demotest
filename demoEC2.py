@@ -59,7 +59,7 @@ def main():
 	#+ "-" + nvtype + "-" + env + "-" + ver + "-" + time.strftime("%H%M%S")
 
  	# Set S3 Template URL
-	s3template = "https://s3.amazonaws.com/rf-cf-fidelity/sg.json"
+	s3template = "https://" + diction["WebELBTemplateURI"].strip()
 	
 	# Pull Chef Environment default_attributes --- changing this line to just read App
 	chefpull = "/usr/bin/knife environment show -a default_attributes " + app 
