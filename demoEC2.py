@@ -72,8 +72,8 @@ def main():
 	
 	cfecho = ""
 	cfnparams = diction["cfn_inputs"].strip().split(",")
-	for detail in diction["echo2cfdetails"].strip().split(","):
-		cfecho = cfecho + "echo " + detail + " >> /tmp/cf_details.txt;"
+	#for detail in diction["echo2cfdetails"].strip().split(","):
+	#	cfecho = cfecho + "echo " + detail + " >> /tmp/cf_details.txt;"
 	paramslist = []
 	for param in cfnparams:
 		if "TemplateURI" in param:
