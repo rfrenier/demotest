@@ -63,7 +63,7 @@ def main():
 	chefpull = "/usr/bin/knife environment show -a default_attributes " + app + " -c" + knifefile + " | sed 1,2d"
 	
 	#+ "_" + nvtype + "_" + env + "_" + ver + " -c " 
-	#print "\nPulling chef environment:\n" + chefpull
+	print "\nPulling chef environment:\n" + chefpull
 	defattrib = commands.getoutput(chefpull)
 	#print "\nOutput:\n" + defattrib
 	diction = dict(item.strip().split(":") for item in defattrib.splitlines())
@@ -72,10 +72,6 @@ def main():
 	# Build CFN parameters
 	cfecho = ""
 	cfnparams = diction["cfn_inputs"].strip().split(",")
-
-	print diction
-
-	print cfnparams 
 
 	for detail in diction["echo2cfdetails"].strip().split(","):
 		cfecho = cfecho + "echo " + detail + " >> /tmp/cf_details.txt;"
