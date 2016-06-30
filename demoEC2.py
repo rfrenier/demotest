@@ -65,7 +65,7 @@ def main():
 	#+ "_" + nvtype + "_" + env + "_" + ver + " -c " 
 	print "\nPulling chef environment:\n" + chefpull
 	defattrib = commands.getoutput(chefpull)
-	#print "\nOutput:\n" + defattrib
+	print "\nOutput:\n" + defattrib
 	diction = dict(item.strip().split(":") for item in defattrib.splitlines())
 	region = diction["region"].strip()
 	
