@@ -60,7 +60,7 @@ def main():
 
 	
 	# Pull Chef Environment default_attributes --- changing this line to just read App ****Add +knifefile + 
-	chefpull = "/usr/bin/knife environment show -a default_attributes " + app + " -c" + knifefile + " | sed 1,2d"
+	chefpull = "/usr/bin/knife environment show -a default_attributes " + app + " -c" + " | sed 1,2d"
 	
 	#+ "_" + nvtype + "_" + env + "_" + ver + " -c " 
 	print "\nPulling chef environment:\n" + chefpull
