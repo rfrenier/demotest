@@ -68,7 +68,7 @@ def main():
 	print "\nOutput:\n" + defattrib
 	diction = dict(item.strip().split(":") for item in defattrib.splitlines())
 	region = diction["region"].strip()
-	print "\nOutput:\n" + diction
+	print  diction
 	
 	# Build CFN parameters
 	cfecho = ""
