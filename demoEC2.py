@@ -58,8 +58,6 @@ def main():
 	stackname = app + "-" + nvtype
 	#+ "-" + nvtype + "-" + env + "-" + ver + "-" + time.strftime("%H%M%S")
 
- 	# Set S3 Template URL
-	s3template = "https://" + diction["WebELBTemplateURI"].strip()
 	
 	# Pull Chef Environment default_attributes --- changing this line to just read App
 	chefpull = "/usr/bin/knife environment show -a default_attributes " + app 
@@ -71,6 +69,9 @@ def main():
 	diction = dict(item.strip().split(":") for item in defattrib.splitlines())
 	region = diction["region"].strip()
 	print "\nOutput:\n" + region
+	
+	# Set S3 Template URL
+	s3template = "https://" + diction["WebELBTemplateURI"].strip()
 	
  	# Run CFN command
 	cfnconn = boto.cloudformation.connect_to_region(region)
