@@ -76,8 +76,12 @@ def main():
 		cfecho = cfecho + "echo " + detail + " >> /tmp/cf_details.txt;"
 	paramslist = []
 	
-	
-####################################	
+	# Build CFN parameters
+	cfecho = ""
+	cfnparams = diction["cfn_inputs"].strip().split(",")
+	for detail in diction["echo2cfdetails"].strip().split(","):
+		cfecho = cfecho + "echo " + detail + " >> /tmp/cf_details.txt;"
+	paramslist = []
 	for param in cfnparams:
 		if "TemplateURI" in param:
 			paramslist.append((param,'https://' + diction[param].strip()))
@@ -85,18 +89,17 @@ def main():
 			paramslist.append((param,cfecho))
 		else:
 			paramslist.append((param,diction[param].strip()))
-	#paramslist.append(('OwnerEID',owner))
-	#paramslist.append(('OwnerEmail',email))
-	#paramslist.append(('ApplicationName',app))
-	#paramslist.append(('Environment',nvtype))
-	#dnscname = app + env + ver
-	#dnscname = dnscname.lower()
-	#dnscname = dnscname.replace(".","-")
-	#dnscname = dnscname + ".kdc.capitalone.com"
-	#paramslist.append(('WebELBCNAMEFQDN',dnscname))
+	paramslist.append(('OwnerEID',owner))
+	paramslist.append(('OwnerEmail',email))
+	paramslist.append(('ApplicationName',app))
+	paramslist.append(('Environment',nvtype))
+	dnscname = app + env + ver
+	dnscname = dnscname.lower()
+	dnscname = dnscname.replace(".","-")
+	dnscname = dnscname + ".kdc.capitalone.com"
+	paramslist.append(('WebELBCNAMEFQDN',dnscname))
 	print "\nParameters Contents:\n"
 	print paramslist
-##################################
 	
 	# Set S3 Template URL
 	s3template = "https://" + diction["WebELBTemplateURI"].strip()
