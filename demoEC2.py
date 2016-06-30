@@ -68,12 +68,13 @@ def main():
 	print "\nOutput:\n" + defattrib
 	diction = dict(item.strip().split(":") for item in defattrib.splitlines())
 	region = diction["region"].strip()
-	print "\nOutput:\n" + region
+	
 	
 	cfecho = ""
 	cfnparams = diction["cfn_inputs"].strip().split(",")
-	#for detail in diction["echo2cfdetails"].strip().split(","):
-	#	cfecho = cfecho + "echo " + detail + " >> /tmp/cf_details.txt;"
+	print "\nOutput:\n" + diction
+	for detail in diction["echo2cfdetails"].strip().split(","):
+		cfecho = cfecho + "echo " + detail + " >> /tmp/cf_details.txt;"
 	paramslist = []
 	for param in cfnparams:
 		if "TemplateURI" in param:
