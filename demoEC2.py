@@ -19,7 +19,7 @@ def main():
 	email = ""
 
 	# Define globals
-	helpmessage = "aws-cfn-deploy.py --app <Application> --type <EnvironmentType> --env <ChefEnvironment> --ver <Version> --dnsuser <techopsapiuser> --dnspass <techopsapipassword> --owner <eid> --email <owneremail>"
+	helpmessage = "demo-deploy.py --app <Application> --type <EnvironmentType> --env <ChefEnvironment> --ver <Version> --dnsuser <techopsapiuser> --dnspass <techopsapipassword> --owner <eid> --email <owneremail>"
 	knifefile = "/opt/chef/developer12/developer/knife.rb"
 	
 	# Check if less than 8 parameters were passed
@@ -29,7 +29,7 @@ def main():
 
 	# Grab parameters and populate variables
 	try:
-		opts, args = getopt.getopt(sys.argv[1:],"ha:t:n:v:u:p:o:e:",["app=","type=","env=","ver=","dnsuser=","dnspass=","owner=","email="])
+		opts, args = getopt.getopt(sys.argv[1:],"ha:t:n:v:",["app=","type=","env=","ver="])
 	except getopt.GetoptError: 
 		print helpmessage
 		sys.exit(2)
@@ -45,14 +45,6 @@ def main():
 			env = arg
 		elif opt in ("-v", "--ver"):
 			ver = arg
-		elif opt in ("-u", "--dnsuser"):
-			dnsuser = arg
-		elif opt in ("-p", "--dnspass"):
-			dnspass = arg
-		elif opt in ("-o", "--owner"):
-			owner = arg
-		elif opt in ("-e", "--email"):
-			email = arg
 		else:
 			print helpmessage
 			sys.exit(2)
@@ -63,7 +55,7 @@ def main():
 	#	sys.exit(2)
 
 	# Define stackname
-	stackname = app 
+	stackname = app + "-" + type
 	#+ "-" + nvtype + "-" + env + "-" + ver + "-" + time.strftime("%H%M%S")
 
  	# Set S3 Template URL
@@ -89,6 +81,26 @@ def main():
 		sys.exit(2)
 	else:
 		print "Output:\n" + cfnoutput
+		
+	# Wait for Stack to finish
+	stacks = cfnconn.describe_stacks(stackname)
+	stack = stacks[0]
+	lcv = 0
+	print "\nWaiting for stack to complete..."
+	while "CREATE_COMPLETE" not in stack.stack_status:
+		lcv += 1
+		if "ROLLBACK" in stack.stack_status:
+			print "\nStack is being rolled back. Check the cloudformation events for your stack to troubleshoot: " + stackname
+			sys.exit(2)
+		if lcv > 60:
+			print "\nStack did not complete."
+			print "Sending cfn delete: \n"
+			cfnconn.delete_stack(stackname)
+			sys.exit(2)
+		time.sleep(10)
+		stacks = cfnconn.describe_stacks(stackname)
+		stack = stacks[0]
+	print "Stack complete.\n"
         
 if __name__ == "__main__":
 	main()                                                                                                                                                                                                                                                                            
