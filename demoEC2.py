@@ -63,20 +63,23 @@ def main():
 	chefpull = "/usr/bin/knife environment show -a default_attributes " + app 
 	
 	#+ "_" + nvtype + "_" + env + "_" + ver + " -c " + knifefile + " | sed 1,2d"
-	print "\nPulling chef environment:\n" + chefpull
+	#print "\nPulling chef environment:\n" + chefpull
 	defattrib = commands.getoutput(chefpull)
-	print "\nOutput:\n" + defattrib
+	#print "\nOutput:\n" + defattrib
 	diction = dict(item.strip().split(":") for item in defattrib.splitlines())
 	region = diction["region"].strip()
 	
 	# Build CFN parameters
 	cfecho = ""
 	cfnparams = diction["cfn_inputs"].strip().split(",")
-	print cfnparams
-	
+
 	for detail in diction["echo2cfdetails"].strip().split(","):
 		cfecho = cfecho + "echo " + detail + " >> /tmp/cf_details.txt;"
 	paramslist = []
+	
+	print diction
+	
+####################################	
 	#for param in cfnparams:
 	#	if "TemplateURI" in param:
 	#		paramslist.append((param,'https://' + diction[param].strip()))
@@ -95,6 +98,7 @@ def main():
 	#paramslist.append(('WebELBCNAMEFQDN',dnscname))
 	#print "\nParameters Contents:\n"
 	#print paramslist
+##################################
 	
 	# Set S3 Template URL
 	s3template = "https://" + diction["WebELBTemplateURI"].strip()
