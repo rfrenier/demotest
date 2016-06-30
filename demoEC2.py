@@ -69,7 +69,7 @@ def main():
 	diction = dict(item.strip().split(":") for item in defattrib.splitlines())
 	region = diction["region"].strip()
 	
-	
+	# Build CFN parameters
 	cfecho = ""
 	cfnparams = diction["cfn_inputs"].strip().split(",")
 	for detail in diction["echo2cfdetails"].strip().split(","):
@@ -86,10 +86,10 @@ def main():
 	paramslist.append(('OwnerEmail',email))
 	paramslist.append(('ApplicationName',app))
 	paramslist.append(('Environment',nvtype))
-	dnscname = app + env + ver
-	dnscname = dnscname.lower()
-	dnscname = dnscname.replace(".","-")
-	dnscname = dnscname + ".kdc.capitalone.com"
+	#dnscname = app + env + ver
+	#dnscname = dnscname.lower()
+	#dnscname = dnscname.replace(".","-")
+	#dnscname = dnscname + ".kdc.capitalone.com"
 	paramslist.append(('WebELBCNAMEFQDN',dnscname))
 	print "\nParameters Contents:\n"
 	print paramslist
