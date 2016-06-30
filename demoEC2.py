@@ -67,7 +67,7 @@ def main():
 	#+ "-" + nvtype + "-" + env + "-" + ver + "-" + time.strftime("%H%M%S")
 
  	# Set S3 Template URL
-	s3template = "https://s3.amazonaws.com/rf-cf-fidelity/web-cf.json"
+	s3template = "https://s3.amazonaws.com/rf-cf-fidelity/sg.json"
 	
 	# Pull Chef Environment default_attributes --- changing this line to just read App
 	chefpull = "/usr/bin/knife environment show -a default_attributes " + app 
@@ -81,7 +81,7 @@ def main():
 	print "\nOutput:\n" + region
 	
  	# Run CFN command
-	cfnconn = boto.cloudformation.connect_to_region("us-east-1")
+	cfnconn = boto.cloudformation.connect_to_region(region)
 	print "\nCreating stack...\n"
 	cfnoutput = cfnconn.create_stack(stackname, template_url=s3template)
 	if "arn:aws:cloudformation:" not in cfnoutput:
