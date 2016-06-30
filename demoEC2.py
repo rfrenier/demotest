@@ -76,9 +76,10 @@ def main():
 	print "\nPulling chef environment:\n" + chefpull
 	defattrib = commands.getoutput(chefpull)
 	print "\nOutput:\n" + defattrib
-	#diction = dict(item.strip().split(":") for item in defattrib.splitlines())
-	#region = diction["region"].strip()
-
+	diction = dict(item.strip().split(":") for item in defattrib.splitlines())
+	region = diction["region"].strip()
+	print "\nOutput:\n" + region
+	
  	# Run CFN command
 	cfnconn = boto.cloudformation.connect_to_region("us-east-1")
 	print "\nCreating stack...\n"
