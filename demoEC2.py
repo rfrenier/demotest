@@ -67,14 +67,7 @@ def main():
 	print "\nOutput:\n" + defattrib
 	diction = dict(item.strip().split(":") for item in defattrib.splitlines())
 	region = diction["region"].strip()
-	
-	# Build CFN parameters
-	cfecho = ""
-	cfnparams = diction["cfn_inputs"].strip().split(",")
 
-	for detail in diction["WebELBListenerProtocol"].strip().split(","):
-		cfecho = cfecho + "echo " + detail + " >> /tmp/cf_details.txt;"
-	paramslist = []
 	
 	# Build CFN parameters
 	cfecho = ""
@@ -96,7 +89,7 @@ def main():
 	dnscname = app + env + ver
 	dnscname = dnscname.lower()
 	dnscname = dnscname.replace(".","-")
-	dnscname = dnscname + ".kdc.capitalone.com"
+	dnscname = dnscname + ".demo.com"
 	paramslist.append(('WebELBCNAMEFQDN',dnscname))
 	print "\nParameters Contents:\n"
 	print paramslist
