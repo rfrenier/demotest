@@ -70,15 +70,12 @@ def main():
 	defattrib = commands.getoutput(chefpull)
 	print "\nOutput:\n" + defattrib
 	diction = dict(item.strip().split(":") for item in defattrib.splitlines())
-	
 	region = diction["region"].strip()
 
 	
 	# Build CFN parameters
 	cfecho = ""
 	cfnparams = diction["cfn_inputs"].strip().split(",")
-
-	
 	for detail in diction["echo2cfdetails"].strip().split(","):
 		cfecho = cfecho + "echo " + detail + " >> /tmp/cf_details.txt;"
 	paramslist = []
@@ -102,7 +99,7 @@ def main():
 	print paramslist
 	
 	# Set S3 Template URL
-	s3template = "https://" + diction["WebELBTemplateURI"].strip()
+	s3template = "https://" + diction["ParentTemplateS3File"].strip()
 	
  	# Run CFN command
 	cfnconn = boto.cloudformation.connect_to_region(region)
