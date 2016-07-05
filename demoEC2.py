@@ -101,7 +101,7 @@ def main():
 	# Set S3 Template URL
 	s3template = "https://" + diction["ParentTemplateS3File"].strip()
 	
-	print "\nTemplate\n" s3template
+	print "\nTemplate\n" + s3template
 	
  	# Run CFN command
 	cfnconn = boto.cloudformation.connect_to_region(region)
