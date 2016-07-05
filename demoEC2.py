@@ -71,7 +71,6 @@ def main():
 	print "\nOutput:\n" + defattrib
 	diction = dict(item.strip().split(":") for item in defattrib.splitlines())
 	
-	print "\nPrinting diction\n" + diction
 	region = diction["region"].strip()
 
 	
