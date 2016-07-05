@@ -45,9 +45,9 @@ def main():
 			app = arg
 		elif opt in ("-t", "--type"):
 			nvtype = arg
-		elif opt in ("-n", "--env"):
+		elif opt in ("-n", "--ASGSNSTopic"):
 			env = arg
-		elif opt in ("-v", "--ver"):
+		elif opt in ("-v", "--SNSTopicARN"):
 			ver = arg
 		else:
 			print helpmessage
@@ -106,7 +106,7 @@ def main():
  	# Run CFN command
 	cfnconn = boto.cloudformation.connect_to_region(region)
 	print "\nCreating stack...\n"
-	cfnoutput = cfnconn.create_stack(stackname, template_url=s3template, parameters=paramslist)
+	cfnoutput = cfnconn.create_stack(stackname, template_url=s3template, parameters=paramslist, ASGSNSTopic, SNSTopicARN)
 	if "arn:aws:cloudformation:" not in cfnoutput:
 		print "Stack create failed."
 		sys.exit(2)
