@@ -1,4 +1,8 @@
-
+"""
+  Script Name:  capone-aws-cfn-deploy.py
+  Purpose:  This script is used to take several inputs and execute 
+  			cloudformation after referencing chef.
+"""
 import os
 import sys
 import getopt
@@ -65,8 +69,7 @@ def main():
 	print "\nPulling chef environment:\n" + chefpull
 	defattrib = commands.getoutput(chefpull)
 	print "\nOutput:\n" + defattrib
-	diction = dict([defattrib])
-	#(item.strip().split(":") for item in defattrib.splitlines())
+	diction = dict(item.strip().split(":") for item in defattrib.splitlines())
 	
 	print "\nPrinting diction\n" + diction
 	region = diction["region"].strip()
