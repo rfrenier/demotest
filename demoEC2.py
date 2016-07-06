@@ -23,7 +23,7 @@ def main():
 	email = ""
 
 	# Define globals
-	helpmessage = "demo-deploy.py --app <Application> --type <EnvironmentType> --env <ChefEnvironment> --ver <Version> --dnsuser <techopsapiuser> --dnspass <techopsapipassword> --owner <eid> --email <owneremail>"
+	helpmessage = "demo-deploy.py --app <Application> --type <EnvironmentType> --env <ChefEnvironment> --ver <Version> --owner <eid> --email <owneremail>"
 	knifefile = "/opt/chef/developer12/developer/knife.rb"
 	
 	# Check if less than 8 parameters were passed
@@ -33,7 +33,7 @@ def main():
 
 	# Grab parameters and populate variables
 	try:
-		opts, args = getopt.getopt(sys.argv[1:],"ha:t:n:v:",["app=","type=","env=","ver="])
+		opts, args = getopt.getopt(sys.argv[1:],"ha:t:n:v:o:e:",["app=","type=","env=","ver=","owner=","email="])
 	except getopt.GetoptError: 
 		print helpmessage
 		sys.exit(2)
@@ -45,10 +45,14 @@ def main():
 			app = arg
 		elif opt in ("-t", "--type"):
 			nvtype = arg
-		elif opt in ("-n", "--ASGSNSTopic"):
+		elif opt in ("-n", "--env"):
 			env = arg
-		elif opt in ("-v", "--SNSTopicARN"):
+		elif opt in ("-v", "--ver"):
 			ver = arg
+		elif opt in ("-o", "--owner"):
+			owner = arg
+		elif opt in ("-e", "--email"):
+			email = arg
 		else:
 			print helpmessage
 			sys.exit(2)
