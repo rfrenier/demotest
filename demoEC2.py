@@ -68,7 +68,7 @@ def main():
 
 	
 	# Pull Chef Environment default_attributes
-	chefpull = "/usr/bin/knife environment show -a default_attributes " + app + " | sed 1,2d"
+	chefpull = "/usr/bin/knife environment show -a default_attributes " + app + "_" + nvtyp | sed 1,2d"
 	#+ "_" + nvtype + "_" + env + "_" + ver + " -c " + knifefile + " | sed 1,2d"
 	print "\nPulling chef environment:\n" + chefpull
 	defattrib = commands.getoutput(chefpull)
