@@ -63,8 +63,8 @@ def main():
 	#	sys.exit(2)
 
 	# Define stackname
-	stackname = app + "-" + nvtype + "-" + time.strftime("%H%M%S")
-	#+ "-" + nvtype + "-" + env + "-" + ver + "-" + time.strftime("%H%M%S")
+	stackname = app + "-" + nvtype + "-" + ver + "-" + time.strftime("%H%M%S")
+
 
 	
 	# Pull Chef Environment default_attributes
