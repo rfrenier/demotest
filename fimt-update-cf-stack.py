@@ -1,5 +1,5 @@
 """
-  Script Name:  capone-aws-cfn-udpate.py
+  Script Name:  fimt-update-cf-stack.py
   Purpose:  This script is used to take several inputs and execute 
   			cloudformation after referencing chef.
 """
@@ -17,14 +17,12 @@ def main():
 	nvtype = ""
 	env = ""
 	ver = ""
-	dnsuser = ""
-	dnspass = ""
 	owner = ""
 	email = ""
 	stackname = ""
 
 	# Define globals
-	helpmessage = "capone-aws-cfn-update.py --app <Application> --type <EnvironmentType> --env <ChefEnvironment> --ver <Version> --dnsuser <techopsapiuser> --dnspass <techopsapipassword> --owner <eid> --email <owneremail> --stackname <aws-cfn-stackname>"
+	helpmessage = "fimt-update-cf-stack.py --app <Application> --type <EnvironmentType> --env <ChefEnvironment> --ver <Version> --owner <eid> --email <owneremail> --stackname <aws-cfn-stackname>"
 	knifefile = "/opt/chef/developer12/developer/knife.rb"
 	
 	# Check if less than 9 parameters were passed
@@ -34,7 +32,7 @@ def main():
 
 	# Grab parameters and populate variables
 	try:
-		opts, args = getopt.getopt(sys.argv[1:],"ha:t:n:v:o:e:",["app=","type=","env=","ver=","owner=","email="])
+		opts, args = getopt.getopt(sys.argv[1:],"ha:t:v:o:e:s:",["app=","type=","ver=","owner=","email=","stackname="])
 	except getopt.GetoptError: 
 		print helpmessage
 		sys.exit(2)
@@ -46,8 +44,6 @@ def main():
 			app = arg
 		elif opt in ("-t", "--type"):
 			nvtype = arg
-		elif opt in ("-n", "--env"):
-			env = arg
 		elif opt in ("-v", "--ver"):
 			ver = arg
 		elif opt in ("-o", "--owner"):
@@ -61,12 +57,13 @@ def main():
 			sys.exit(2)
 
 	# If any of the variables were blank, echo help and quit
-	#if (app == '') or (nvtype == '') or (env == '') or (ver == '') or (dnsuser == '') or (dnspass == '') or (owner == '') or (email == '') or (stackname == ''):
+	#if (app == '') or (nvtype == '') or (env == '') or (ver == '') or (owner == '') or (email == '') or (stackname == ''):
 	#	print helpmessage
 	#	sys.exit(2)
 
 	# Pull Chef Environment default_attributes
-	chefpull = "/usr/bin/knife environment show -a default_attributes " + app + "_" + nvtype + "_" + env + "_" + ver + " -c " + knifefile + " | sed 1,2d"
+	chefpull = "/usr/bin/knife environment show -a default_attributes " + app + "_" + nvtype 
+	#+ "_" + env + "_" + ver + " -c " + knifefile + " | sed 1,2d"
 	print "\nPulling chef environment:\n" + chefpull
 	defattrib = commands.getoutput(chefpull)
 	print "\nOutput:\n" + defattrib
@@ -90,11 +87,6 @@ def main():
 	paramslist.append(('OwnerEmail',email))
 	paramslist.append(('ApplicationName',app))
 	paramslist.append(('Environment',nvtype))
-	dnscname = app + env + ver
-	dnscname = dnscname.lower()
-	dnscname = dnscname.replace(".","-")
-	dnscname = dnscname + ".kdc.capitalone.com"
-	paramslist.append(('WebELBCNAMEFQDN',dnscname))
 	print "\nParameters Contents:\n"
 	print paramslist
 
