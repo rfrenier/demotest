@@ -1,5 +1,5 @@
 """
-  Script Name:  fimt-update-cf-stack.py
+  Script Name:  capone-aws-cfn-udpate.py
   Purpose:  This script is used to take several inputs and execute 
   			cloudformation after referencing chef.
 """
@@ -17,13 +17,15 @@ def main():
 	nvtype = ""
 	env = ""
 	ver = ""
+	dnsuser = ""
+	dnspass = ""
 	owner = ""
 	email = ""
 	stackname = ""
 
 	# Define globals
-	helpmessage = "fimt-update-cf-stack.py --app <Application> --type <EnvironmentType> --env <ChefEnvironment> --ver <Version> --dnsuser <techopsapiuser> --dnspass <techopsapipassword> --owner <eid> --email <owneremail> --stackname <aws-cfn-stackname>"
-	#knifefile = "/opt/chef/developer12/developer/knife.rb"
+	helpmessage = "capone-aws-cfn-update.py --app <Application> --type <EnvironmentType> --env <ChefEnvironment> --ver <Version> --dnsuser <techopsapiuser> --dnspass <techopsapipassword> --owner <eid> --email <owneremail> --stackname <aws-cfn-stackname>"
+	knifefile = "/opt/chef/developer12/developer/knife.rb"
 	
 	# Check if less than 9 parameters were passed
 	#if len(sys.argv) < 9:
@@ -64,14 +66,12 @@ def main():
 	#	sys.exit(2)
 
 	# Pull Chef Environment default_attributes
-	chefpull = "/usr/bin/knife environment show -a default_attributes " + app + "_" + nvtype 
-	#+ "_" + env + "_" + ver + " -c " + knifefile + " | sed 1,2d"
+	chefpull = "/usr/bin/knife environment show -a default_attributes " + app + "_" + nvtype + "_" + env + "_" + ver + " -c " + knifefile + " | sed 1,2d"
 	print "\nPulling chef environment:\n" + chefpull
 	defattrib = commands.getoutput(chefpull)
 	print "\nOutput:\n" + defattrib
 	diction = dict(item.strip().split(":") for item in defattrib.splitlines())
 	region = diction["region"].strip()
-
 
 	# Build CFN parameters
 	cfecho = ""
@@ -90,6 +90,11 @@ def main():
 	paramslist.append(('OwnerEmail',email))
 	paramslist.append(('ApplicationName',app))
 	paramslist.append(('Environment',nvtype))
+	dnscname = app + env + ver
+	dnscname = dnscname.lower()
+	dnscname = dnscname.replace(".","-")
+	dnscname = dnscname + ".kdc.capitalone.com"
+	paramslist.append(('WebELBCNAMEFQDN',dnscname))
 	print "\nParameters Contents:\n"
 	print paramslist
 
